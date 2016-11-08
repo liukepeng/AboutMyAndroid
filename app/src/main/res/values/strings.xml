@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ScrollerView</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="item_scroll_method">ScrollTo和ScrollBy方法</string>
+    <string name="item_scroll_layout">带弹性的Layout</string>
+    <string name="item_scroll_pager">翻页子View的Layout</string>
+</resources>
