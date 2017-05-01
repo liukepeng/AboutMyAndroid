@@ -11,11 +11,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAB_NAME_1 = "one";
-    private static final String TAB_NAME_2 = "two";
-    private static final String TAB_NAME_3 = "three";
+    private static final String TAB_NAME_1 = "日成交股票数";
+    private static final String TAB_NAME_2 = "成交金额（万元）";
+    private static final String TAB_NAME_3 = "成交数量（万股）";
     private List<String> tabNames;
-    private List<BaseFragment> fragments;
+    private List<Fragment> fragments;
     private List<Integer> tabIcs;
     private ViewPager viewPager;
     private TabLayout tabLayout;

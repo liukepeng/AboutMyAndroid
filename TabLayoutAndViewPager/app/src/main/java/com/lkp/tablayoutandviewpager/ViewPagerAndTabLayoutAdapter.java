@@ -18,12 +18,12 @@ public class ViewPagerAndTabLayoutAdapter extends FragmentStatePagerAdapter {
 
 
     private List<String> tabNames;
-    private List<BaseFragment> fragments;
+    private List<Fragment> fragments;
     private List<Integer> tabIcs;
     private SpannableString spannableString;
     private Context context;
 
-    public ViewPagerAndTabLayoutAdapter(FragmentManager fm,Context context,List<String> tabNames, List<BaseFragment> fragments,List<Integer> tabIcs) {
+    public ViewPagerAndTabLayoutAdapter(FragmentManager fm,Context context,List<String> tabNames, List<Fragment> fragments,List<Integer> tabIcs) {
         super(fm);
         this.context = context; //获取图片资源的时候需要Context参数
         this.fragments = fragments;
