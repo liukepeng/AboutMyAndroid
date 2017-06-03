@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,6 +121,7 @@ public class CrimeListFragment extends Fragment {
             mCrimeAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mCrimeAdapter);
         }else {
+            mCrimeAdapter.setCrimes(crimes);
             mCrimeAdapter.notifyDataSetChanged();
         }
         updateSubtitle();
@@ -143,13 +145,19 @@ public class CrimeListFragment extends Fragment {
             mTitileTextView = (TextView) itemView.findViewById(R.id.list_item_crime_title_text_view);
             mDateTextView = (TextView) itemView.findViewById(R.id.list_item_crime_date_text_view);
             mSolvedCheckBox = (CheckBox) itemView.findViewById(R.id.list_item_crime_solved_check_box);
+            mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    mCrime.setSolved(isChecked);
+                }
+            });
         }
 
         public void bindCrime(Crime crime){
             mCrime = crime;
             mTitileTextView.setText(mCrime.getTitle());
             mDateTextView.setText(mCrime.getDate().toString());
-            if (mCrime.isSolved() != null) mSolvedCheckBox.setChecked(mCrime.isSolved());
+            mSolvedCheckBox.setChecked(mCrime.isSolved());
         }
 
         @Override
@@ -184,6 +192,9 @@ public class CrimeListFragment extends Fragment {
         public int getItemCount() {
             return mCrimes.size();
         }
-    }
 
+        public void setCrimes(List<Crime> crimes){
+            mCrimes = crimes;
+        }
+    }
 }

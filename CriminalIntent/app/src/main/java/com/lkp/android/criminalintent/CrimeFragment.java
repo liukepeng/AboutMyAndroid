@@ -54,6 +54,13 @@ public class CrimeFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        CrimeLabel.newInstance(getActivity())
+                .updateCrime(mCrime);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -90,7 +97,7 @@ public class CrimeFragment extends Fragment {
         });
 
         mSovledCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);
-        if (mCrime.isSolved() != null) mSovledCheckBox.setChecked(mCrime.isSolved());
+        mSovledCheckBox.setChecked(mCrime.isSolved());
         mSovledCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
