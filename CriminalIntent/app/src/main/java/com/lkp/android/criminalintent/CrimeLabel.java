@@ -80,6 +80,10 @@ public class CrimeLabel {
         mDatabase.update(CrimeTable.NAME, values, CrimeTable.Cols.UUID + " =?", new String[]{uuidString});
     }
 
+    public void deleteCrime(Crime crime){
+        String uuidString = crime.getId().toString();
+        mDatabase.delete(CrimeTable.NAME,  CrimeTable.Cols.UUID + " =?", new String[]{uuidString});
+    }
     private static ContentValues getContentValues(Crime crime){
         ContentValues values = new ContentValues();
         values.put(CrimeTable.Cols.UUID, crime.getId().toString());

@@ -54,6 +54,7 @@ public class CrimeFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+
     @Override
     public void onPause() {
         super.onPause();
@@ -130,6 +131,7 @@ public class CrimeFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.delete_crime :
                 CrimeLabel.newInstance(getActivity()).getCrimes().remove(mCrime);
+                CrimeLabel.newInstance(getActivity()).deleteCrime(mCrime);
                 getActivity().finish();
                 return true;
             default : return super.onOptionsItemSelected(item);
