@@ -43,8 +43,10 @@ public class CrimeFragment extends Fragment {
     private static final String DIALOG_DATE = "dialogDate";
     private static final int REQUEST_DATE = 0;
     private static final int  REQUEST_CONTACT = 1;
+    private static final int REQUEST_CALL = 2;
     private Button mReportButton;
     private Button mSuspectButton;
+    private Button mCallCrimerButtom;
 
 
     public static CrimeFragment newInstance(UUID crimeId){
@@ -146,6 +148,15 @@ public class CrimeFragment extends Fragment {
         if (packageManager.resolveActivity(pickContact,PackageManager.MATCH_DEFAULT_ONLY) == null){
             mSuspectButton.setEnabled(false);
         }
+
+
+        mCallCrimerButtom = (Button) v.findViewById(R.id.call_crimer);
+        mCallCrimerButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(pickContact, REQUEST_CALL);
+            }
+        });
         return v;
     }
 
@@ -176,7 +187,16 @@ public class CrimeFragment extends Fragment {
             }finally {
                 cursor.close();
             }
-
+        } else if (requestCode == REQUEST_CALL && data !=null){
+            Uri contactUri = data.getData();
+            Cursor cursor = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null ,null, null, null);
+            String number = null;
+            while (cursor.moveToNext()){
+                 number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            }
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:"+ number));
+            startActivity(callIntent);
         }
     }
 
