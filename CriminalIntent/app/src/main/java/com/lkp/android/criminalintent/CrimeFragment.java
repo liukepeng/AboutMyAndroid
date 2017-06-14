@@ -189,13 +189,17 @@ public class CrimeFragment extends Fragment {
             }
         } else if (requestCode == REQUEST_CALL && data !=null){
             Uri contactUri = data.getData();
-            Cursor cursor = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null ,null, null, null);
-            String number = null;
+            Cursor cursor = getActivity().getContentResolver().query(contactUri, null ,null, null, null);
+            String phoneNumber = null;
             while (cursor.moveToNext()){
-                 number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+                Cursor phone = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+                if (phone.moveToNext()) {
+                      phoneNumber = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                }
             }
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
-            callIntent.setData(Uri.parse("tel:"+ number));
+            callIntent.setData(Uri.parse("tel:"+ phoneNumber));
             startActivity(callIntent);
         }
     }
