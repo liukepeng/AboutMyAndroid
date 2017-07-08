@@ -4,12 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 
 import com.lkp.android.criminalintent.database.CrimeBaseHelper;
 import com.lkp.android.criminalintent.database.CrimeCursorWrapper;
 import com.lkp.android.criminalintent.database.CrimeDbSchema;
 import com.lkp.android.criminalintent.database.CrimeDbSchema.CrimeTable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -105,5 +107,14 @@ public class CrimeLabel {
                 null
         );
         return new CrimeCursorWrapper(cursor);
+    }
+
+    public File getPhotoFile(Crime crime){
+        File externalFileDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        if (externalFileDir == null){
+            return null;
+        }
+        return new File(externalFileDir, crime.getPhotoFilename());
+
     }
 }
