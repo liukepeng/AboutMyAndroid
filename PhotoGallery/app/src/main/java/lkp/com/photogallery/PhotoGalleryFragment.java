@@ -30,7 +30,7 @@ import java.util.List;
  * Created by Administrator on 2017/7/17.
  */
 
-public class PhotoGalleryFragment extends Fragment {
+public class PhotoGalleryFragment extends VisibleFragment {
 
     private static final String TAG = "PhotoGalleryFragment";
 
